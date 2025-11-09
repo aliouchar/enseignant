@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../translations';
-import type { Page } from '../types';
+import type { Page, SiteConfig } from '../types';
 import { MenuIcon, CloseIcon } from '../constants';
 
 interface HeaderProps {
     activePage: Page;
     setActivePage: (page: Page) => void;
+    siteConfigData: SiteConfig;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activePage, setActivePage }) => {
+export const Header: React.FC<HeaderProps> = ({ activePage, setActivePage, siteConfigData }) => {
     const { language } = useLanguage();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -37,7 +38,7 @@ export const Header: React.FC<HeaderProps> = ({ activePage, setActivePage }) => 
         <header className="sticky top-4 z-50 container mx-auto px-4 md:px-8">
             <div className="bg-white rounded-xl shadow-lg flex items-center justify-between p-3">
                 <button onClick={() => handlePageChange('Accueil')} className="text-3xl font-bold text-slate-900 hover:text-teal-600 transition-colors">
-                   {translations.headerTitle[language]}
+                   {siteConfigData.headerTitle[language]}
                 </button>
                 
                 {/* Desktop Navigation */}

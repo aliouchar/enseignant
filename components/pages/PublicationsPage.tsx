@@ -79,7 +79,6 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({ publications
                                 onReadMore={() => onViewPublication(pub.id)}
                                 downloadUrl={pub.downloadUrl}
                                 downloadFilename={`Publication_${pub.title.en.replace(/\s+/g, '_')}.txt`}
-                                size="large"
                             />
                         </AnimateOnScroll>
                     ))}

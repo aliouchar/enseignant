@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../translations';
 
-export const Newsletter: React.FC = () => {
+interface NewsletterProps {
+    onSubscribe: (email: string) => void;
+}
+
+export const Newsletter: React.FC<NewsletterProps> = ({ onSubscribe }) => {
     const { language } = useLanguage();
     const [email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
@@ -10,7 +14,7 @@ export const Newsletter: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (email) {
-            console.log('Newsletter subscription for:', email);
+            onSubscribe(email);
             setSubmitted(true);
             setEmail('');
             setTimeout(() => setSubmitted(false), 5000); // Reset after 5s

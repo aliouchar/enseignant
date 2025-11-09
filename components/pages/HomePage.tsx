@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { Section } from '../Section';
-import { InfoCard } from '../InfoCard';
 import { ActionCard } from '../ActionCard';
 import { TestimonialCard } from '../TestimonialCard';
 import { Newsletter } from '../Newsletter';
-import type { NewsItem, Publication, Testimonial, ResearchProject, Course, Page, GalleryImage, NewsLink, GalleryCategory, ResourceItem, MediaItem } from '../../types';
+import type { NewsItem, Publication, Testimonial, ResearchProject, Course, Page, GalleryImage, NewsLink, GalleryCategory, ResourceItem, MediaItem, SiteConfig } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../translations';
-import { headerInfo, ToolIcon, DatasetIcon, ResourceListIcon, PodcastIcon, VideoIcon, ArticleIcon, LinkIcon } from '../../constants';
+import { ToolIcon, DatasetIcon, ResourceListIcon, PodcastIcon, VideoIcon, ArticleIcon, LinkIcon } from '../../constants';
 import { AnimateOnScroll } from '../AnimateOnScroll';
+
+const ZoomIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m-3-3h6" />
+    </svg>
+);
 
 interface HomePageProps {
     newsItems: NewsItem[];
@@ -17,7 +22,7 @@ interface HomePageProps {
     researchProjects: ResearchProject[];
     courses: Course[];
     galleryImages: GalleryImage[];
-    profilePicUrl: string;
+    siteConfigData: SiteConfig;
     resources: ResourceItem[];
     mediaInterventions: MediaItem[];
     setActivePage: (page: Page) => void;
@@ -26,12 +31,14 @@ interface HomePageProps {
     onOpenImageModal: (image: {src: string, alt: string}) => void;
     onViewProject: (id: number) => void;
     onViewCourse: (id: number) => void;
+    onNewsletterSubscribe: (email: string) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ 
-    newsItems, publications, testimonials, researchProjects, profilePicUrl, galleryImages,
+    newsItems, publications, testimonials, researchProjects, courses, galleryImages, siteConfigData, 
     resources, mediaInterventions,
-    setActivePage, onNewsClick, onViewPublication, onOpenImageModal, onViewProject
+    setActivePage, onNewsClick, onViewPublication, onOpenImageModal, onViewProject, onViewCourse,
+    onNewsletterSubscribe
 }) => {
     const { language } = useLanguage();
     const [activeCategory, setActiveCategory] = useState<GalleryCategory | 'all'>('all');
@@ -56,230 +63,242 @@ export const HomePage: React.FC<HomePageProps> = ({
             default: return null;
         }
     };
+    
+    const renderMediaIcon = (type: MediaItem['type']) => {
+        switch(type) {
+            case 'podcast': return <PodcastIcon />;
+            case 'video': return <VideoIcon />;
+            case 'article': return <ArticleIcon />;
+            default: return null;
+        }
+    };
 
     return (
         <>
             {/* Hero Section */}
-            <section className="text-center py-20 md:py-32">
+            <section className="text-center py-16 md:py-24">
                  <AnimateOnScroll className="relative w-72 h-72 mx-auto mb-8">
-                    {/* Background glow */}
-                    <div className="absolute inset-0 rounded-full bg-teal-400 blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
-                    {/* Gradient border */}
-                    <div className="relative w-full h-full p-1.5 rounded-full bg-gradient-to-tr from-teal-400 via-cyan-500 to-emerald-500 shadow-2xl">
-                        {/* Inner border/padding */}
-                        <div className="bg-slate-50 p-1 rounded-full">
-                            <img src={profilePicUrl} alt={headerInfo.name[language]} className="rounded-full w-full h-full object-cover shadow-inner" />
+                    <button
+                        onClick={() => onOpenImageModal({ src: siteConfigData.profilePicUrl, alt: siteConfigData.authorName[language] })}
+                        className="group block w-full h-full rounded-full focus:outline-none focus:ring-4 focus:ring-teal-500/50 focus:ring-offset-4 focus:ring-offset-slate-50"
+                        aria-label={`View image of ${siteConfigData.authorName[language]}`}
+                    >
+                        <div className="absolute inset-0 rounded-full bg-teal-400 blur-3xl animate-pulse group-hover:blur-2xl transition-all" style={{ animationDuration: '4s' }}></div>
+                        <div className="relative w-full h-full p-1.5 rounded-full bg-gradient-to-tr from-teal-400 via-cyan-500 to-emerald-500 shadow-2xl group-hover:shadow-cyan-400/50 transition-shadow">
+                            <div className="bg-slate-50 p-1 rounded-full">
+                                <img src={siteConfigData.profilePicUrl} alt={siteConfigData.authorName[language]} className="rounded-full w-full h-full object-cover shadow-inner" />
+                            </div>
                         </div>
-                    </div>
+                    </button>
                  </AnimateOnScroll>
                  <AnimateOnScroll delay={100}>
-                    <h1 className="text-6xl md:text-8xl font-extrabold text-slate-900 tracking-tighter">{headerInfo.name[language]}</h1>
-                 </AnimateOnScroll>
-                 <AnimateOnScroll delay={200}>
-                    <p className="mt-4 text-xl md:text-2xl text-teal-600">{translations.heroSubtitle[language]}</p>
+                    <h1 className="text-6xl md:text-8xl font-extrabold text-slate-900 tracking-tight">
+                        {siteConfigData.authorName[language]}
+                    </h1>
+                    <p className="mt-4 text-2xl text-slate-600 max-w-2xl mx-auto">
+                        {siteConfigData.heroSubtitle[language]}
+                    </p>
                  </AnimateOnScroll>
             </section>
             
-            {/* Bento Grid Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                {/* Mission */}
-                <AnimateOnScroll className="lg:col-span-2">
-                    <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-8 rounded-2xl shadow-2xl h-full flex flex-col justify-center text-center text-white">
-                        <h3 className="text-3xl font-bold mb-3 tracking-tight">{translations.myMission[language]}</h3>
-                        <blockquote className="text-xl md:text-2xl font-light italic opacity-90">
-                           <p>{translations.missionText[language]}</p>
-                        </blockquote>
+            {/* Mission Section */}
+            <section className="py-12 md:py-16">
+                <AnimateOnScroll>
+                    <div className="container mx-auto px-4 md:px-8 max-w-4xl text-center relative">
+                        <div className="absolute -top-4 left-0 rtl:left-auto rtl:right-0 w-12 h-12 text-teal-100 transform -translate-x-4 rtl:translate-x-4">
+                            <svg fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M14,12H9.5A6.5,6.5,0,0,0,3,18.5v5A2.5,2.5,0,0,0,5.5,26h5A2.5,2.5,0,0,0,13,23.5v-8A2.5,2.5,0,0,0,10.5,13H9V12Z"/><path d="M25.5,13H24V12h1.5A2.5,2.5,0,0,1,28,14.5v8A2.5,2.5,0,0,1,25.5,25H21a2.5,2.5,0,0,1-2.5-2.5v-5A6.5,6.5,0,0,1,25,11h.5Z"/></svg>
+                        </div>
+                        <p className="text-3xl md:text-4xl font-medium text-slate-700 italic leading-relaxed">
+                            {translations.missionText[language].replace(/"/g, '')}
+                        </p>
+                        <div className="absolute -bottom-4 right-0 rtl:right-auto rtl:left-0 w-12 h-12 text-teal-100 transform translate-x-4 rtl:-translate-x-4 rotate-180">
+                            <svg fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M14,12H9.5A6.5,6.5,0,0,0,3,18.5v5A2.5,2.5,0,0,0,5.5,26h5A2.5,2.5,0,0,0,13,23.5v-8A2.5,2.5,0,0,0,10.5,13H9V12Z"/><path d="M25.5,13H24V12h1.5A2.5,2.5,0,0,1,28,14.5v8A2.5,2.5,0,0,1,25.5,25H21a2.5,2.5,0,0,1-2.5-2.5v-5A6.5,6.5,0,0,1,25,11h.5Z"/></svg>
+                        </div>
                     </div>
                 </AnimateOnScroll>
+            </section>
 
-                {/* News */}
-                 <AnimateOnScroll>
-                    <InfoCard title={translations.news[language]} className="h-full flex flex-col">
-                        <ul className="space-y-4 flex-grow">
-                            {newsItems.slice(0, 3).map((item, i) => (
-                                <li key={i} className="text-base">
-                                    {item.link ? (
-                                        <button 
-                                            onClick={() => onNewsClick(item.link!)} 
-                                            className="text-left rtl:text-right group transition-colors duration-200"
-                                        >
-                                             <p className="text-slate-600 group-hover:text-teal-600">
-                                                <span className="font-semibold text-slate-800 group-hover:text-teal-700">{item.date[language]}:</span> {item.title[language]}
-                                             </p>
-                                        </button>
-                                    ) : (
-                                        <p className="text-slate-600">
-                                            <span className="font-semibold text-slate-800">{item.date[language]}:</span> {item.title[language]}
-                                        </p>
+            {/* Latest News */}
+            <Section title={translations.news[language]}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {newsItems.slice(0, 3).map((item, index) => (
+                        <AnimateOnScroll key={index} delay={index * 100}>
+                            <div className="bg-white rounded-lg overflow-hidden flex flex-col h-full shadow-md">
+                                <button
+                                    onClick={() => onOpenImageModal({src: item.imageUrl, alt: item.title[language]})}
+                                    className="relative group block focus:outline-none"
+                                    aria-label={`Enlarge image for ${item.title[language]}`}
+                                >
+                                    <img src={item.imageUrl} alt={item.title[language]} className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
+                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                        <ZoomIcon />
+                                    </div>
+                                </button>
+                                <div className="p-6 flex flex-col flex-grow">
+                                    <p className="text-base text-slate-500 mb-1">{item.date[language]}</p>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2 flex-grow">{item.title[language]}</h3>
+                                    {item.link && (
+                                        <div className="mt-4 pt-4 border-t border-slate-200">
+                                            <button
+                                                onClick={() => onNewsClick(item.link!)}
+                                                className="text-base text-teal-600 font-semibold hover:underline"
+                                            >
+                                                {translations.readMore[language]} &rarr;
+                                            </button>
+                                        </div>
                                     )}
-                                </li>
-                            ))}
-                        </ul>
-                         <div className="mt-auto pt-4 text-right rtl:text-left">
-                            <button onClick={() => setActivePage('Actualités')} className="text-base font-semibold text-teal-600 hover:text-teal-800 transition-colors">
-                                {translations.viewAll[language]} <span aria-hidden="true">&rarr;</span>
-                            </button>
-                        </div>
-                    </InfoCard>
-                </AnimateOnScroll>
-                
-                {/* Latest Publication */}
-                {publications[0] && (
-                    <AnimateOnScroll>
-                        <ActionCard 
-                            title={publications[0].title[language]} 
-                            description={`${publications[0].authors.join(', ')} - ${publications[0].journal[language]} (${publications[0].year})`}
-                            onReadMore={() => onViewPublication(publications[0].id)}
-                            size="large"
-                        />
-                    </AnimateOnScroll>
-                )}
+                                </div>
+                            </div>
+                        </AnimateOnScroll>
+                    ))}
+                </div>
+                <div className="mt-8 text-center">
+                    <button onClick={() => setActivePage('Actualités')} className="px-5 py-2 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 hover:text-slate-900 transition-colors">
+                        {translations.viewAll[language]}
+                    </button>
+                </div>
+            </Section>
 
-                {/* Latest Project */}
-                 {researchProjects[0] && (
-                    <AnimateOnScroll>
+            {/* Testimonials */}
+            <Section title={translations.testimonials[language]}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {testimonials.map((testimonial, index) => (
+                        <AnimateOnScroll key={index} animationClass="animate-fade-in-up" delay={index * 100}>
+                            <TestimonialCard 
+                                testimonial={testimonial} 
+                                onImageClick={() => onOpenImageModal({src: testimonial.imageUrl, alt: testimonial.author[language]})}
+                            />
+                        </AnimateOnScroll>
+                    ))}
+                </div>
+                <div className="mt-8 text-center">
+                    <button onClick={() => setActivePage('Témoignages')} className="px-5 py-2 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 hover:text-slate-900 transition-colors">
+                        {translations.viewAll[language]}
+                    </button>
+                </div>
+            </Section>
+
+            {/* Academic Activities Overview */}
+            <Section title={translations.academicActivities[language]}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                     <AnimateOnScroll>
                         <ActionCard 
                             title={researchProjects[0].title[language]} 
-                            description={researchProjects[0].summary[language]}
+                            description={researchProjects[0].summary[language]} 
                             onReadMore={() => onViewProject(researchProjects[0].id)}
-                            size="large"
                         />
                     </AnimateOnScroll>
-                )}
-                
-                {/* Call to Action */}
-                <AnimateOnScroll>
-                     <div className="bg-white p-6 rounded-lg h-full shadow-md flex flex-col items-center justify-center text-center">
-                        <h3 className="text-3xl font-bold text-slate-900">{translations.exploreMyWork[language]}</h3>
-                        <div className="flex flex-wrap gap-4 mt-4">
-                            <button onClick={() => setActivePage('Publications')} className="bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors">{translations.publications[language]}</button>
-                            <button onClick={() => setActivePage('Recherches')} className="bg-slate-100 text-slate-700 font-semibold py-2 px-4 rounded-lg hover:bg-slate-200 transition-colors">{translations.research[language]}</button>
-                        </div>
-                    </div>
-                </AnimateOnScroll>
+                     <AnimateOnScroll delay={100}>
+                         <ActionCard 
+                            title={publications[0].title[language]} 
+                            description={publications[0].authors.join(', ')} 
+                            onReadMore={() => onViewPublication(publications[0].id)}
+                        />
+                    </AnimateOnScroll>
+                     <AnimateOnScroll delay={200}>
+                         <ActionCard 
+                            title={courses[0].title[language]} 
+                            description={courses[0].level[language]} 
+                            onReadMore={() => onViewCourse(courses[0].id)}
+                        />
+                    </AnimateOnScroll>
+                </div>
+                <div className="mt-8 text-center">
+                    <button onClick={() => setActivePage('CV')} className="px-5 py-2 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 hover:text-slate-900 transition-colors">
+                        {translations.exploreMyWork[language]}
+                    </button>
+                </div>
+            </Section>
+            
+            {/* Resources & Links */}
+            <Section title={translations.resourcesAndLinks[language]}>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {resources.map((item, index) => (
+                        <AnimateOnScroll key={item.id} delay={index * 100}>
+                           <div className="bg-white p-6 rounded-lg h-full shadow-md text-left rtl:text-right flex flex-col">
+                               <div className="flex items-center gap-4 mb-3">
+                                   <div className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 text-teal-600 border border-slate-200">
+                                       {renderResourceIcon(item.icon)}
+                                   </div>
+                                   <h4 className="text-xl font-bold text-slate-900">{item.title[language]}</h4>
+                               </div>
+                               <p className="text-slate-600 mb-4 flex-grow">{item.description[language]}</p>
+                               <div className="mt-auto">
+                                   <a href={item.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-teal-600 hover:underline">{translations.accessResource[language]} &rarr;</a>
+                               </div>
+                           </div>
+                        </AnimateOnScroll>
+                    ))}
+                </div>
+            </Section>
 
-                {/* Gallery Section */}
-                <AnimateOnScroll className="lg:col-span-3">
-                    <Section title={translations.gallery[language]}>
-                        <div className="flex justify-center flex-wrap gap-2 mb-8">
-                            {categories.map(({ key, label }) => (
+            {/* Media & Interventions */}
+            <Section title={translations.mediaAndInterventions[language]}>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {mediaInterventions.map((item, index) => (
+                        <AnimateOnScroll key={item.id} delay={index * 100}>
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden text-left rtl:text-right flex flex-col h-full">
                                 <button
-                                    key={key}
-                                    onClick={() => setActiveCategory(key)}
-                                    className={`px-4 py-2 text-base font-semibold rounded-full transition-colors ${
-                                        activeCategory === key
-                                            ? 'bg-teal-600 text-white'
-                                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                                    }`}
+                                    onClick={() => onOpenImageModal({src: item.imageUrl, alt: item.title[language]})}
+                                    className="relative group w-full block focus:outline-none"
+                                    aria-label={`Enlarge image for ${item.title[language]}`}
                                 >
-                                    {label}
+                                    <img src={item.imageUrl} alt={item.title[language]} className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"/>
+                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                        <ZoomIcon />
+                                    </div>
                                 </button>
-                            ))}
-                        </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                            {filteredImages.map((image, index) => (
-                                <AnimateOnScroll key={image.src + index} delay={index * 50}>
-                                    <button 
-                                        onClick={() => onOpenImageModal({src: image.src, alt: image.alt[language]})}
-                                        className="block w-full h-48 rounded-lg overflow-hidden group relative shadow-md focus:outline-none focus:ring-4 focus:ring-teal-500 focus:ring-opacity-50"
-                                    >
-                                        <img 
-                                            src={image.src} 
-                                            alt={image.alt[language]} 
-                                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
-                                        />
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
-                                        <div className="absolute bottom-0 left-0 rtl:right-0 p-2 text-left rtl:text-right">
-                                            <p className="text-white text-sm font-semibold">{image.alt[language]}</p>
-                                        </div>
-                                    </button>
-                                </AnimateOnScroll>
-                            ))}
-                        </div>
-                    </Section>
-                </AnimateOnScroll>
-                
-                {/* Resources & Links Section */}
-                <AnimateOnScroll className="lg:col-span-3">
-                    <Section title={translations.resourcesAndLinks[language]}>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {resources.map((resource, index) => (
-                                <AnimateOnScroll key={resource.id} delay={index * 100}>
-                                    <div className="bg-white p-6 rounded-lg h-full shadow-md text-left rtl:text-right flex flex-col">
-                                        <div className="flex items-center gap-4 mb-4">
-                                            <div className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-slate-100 border border-slate-200">
-                                                <span className="text-teal-600">{renderResourceIcon(resource.icon)}</span>
-                                            </div>
-                                            <h4 className="text-xl font-bold text-slate-900">{resource.title[language]}</h4>
-                                        </div>
-                                        <p className="text-slate-600 mb-4 flex-grow">{resource.description[language]}</p>
-                                        <div className="mt-auto">
-                                            <a href={resource.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-base bg-slate-100 text-slate-700 font-semibold py-2 px-4 rounded-lg hover:bg-slate-200 hover:text-slate-900 transition-colors">
-                                                {translations.accessResource[language]} <LinkIcon />
-                                            </a>
-                                        </div>
+                                <div className="p-4 flex flex-col flex-grow">
+                                    <div className="flex items-center gap-3 text-sm text-slate-500 mb-2">
+                                        <span className="text-teal-600">{renderMediaIcon(item.type)}</span>
+                                        <span>{item.media[language]}</span>
+                                        <span>&bull;</span>
+                                        <span>{item.date[language]}</span>
                                     </div>
-                                </AnimateOnScroll>
-                            ))}
-                        </div>
-                    </Section>
-                </AnimateOnScroll>
-
-                {/* Media & Interventions Section */}
-                <AnimateOnScroll className="lg:col-span-3">
-                    <Section title={translations.mediaAndInterventions[language]}>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {mediaInterventions.map((item, index) => (
-                                <AnimateOnScroll key={item.id} delay={index * 100}>
-                                    <div className="bg-white rounded-lg overflow-hidden flex flex-col h-full shadow-md">
-                                        <div className="relative">
-                                            <img src={item.imageUrl} alt={item.title[language]} className="w-full h-48 object-cover" />
-                                            <div className="absolute top-2 right-2 rtl:right-auto rtl:left-2 bg-black/50 text-white rounded-full p-2">
-                                                {item.type === 'podcast' && <PodcastIcon />}
-                                                {item.type === 'video' && <VideoIcon />}
-                                                {item.type === 'article' && <ArticleIcon />}
-                                            </div>
-                                        </div>
-                                        <div className="p-6 flex flex-col flex-grow text-left rtl:text-right">
-                                            <p className="text-sm text-slate-500 mb-1">{item.media[language]} - {item.date[language]}</p>
-                                            <h4 className="text-xl font-bold text-slate-900 mb-4 flex-grow">{item.title[language]}</h4>
-                                            <div className="mt-auto">
-                                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-base text-teal-600 font-semibold hover:text-teal-800 transition-colors">
-                                                    {translations.viewMedia[language]} <span aria-hidden="true">&rarr;</span>
-                                                </a>
-                                            </div>
-                                        </div>
+                                    <h4 className="font-bold text-slate-900 mb-3 flex-grow">{item.title[language]}</h4>
+                                    <div className="mt-auto pt-3 border-t border-slate-200">
+                                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-teal-600 hover:underline text-sm">{translations.viewMedia[language]} &rarr;</a>
                                     </div>
-                                </AnimateOnScroll>
-                            ))}
-                        </div>
-                    </Section>
+                                </div>
+                            </div>
+                        </AnimateOnScroll>
+                    ))}
+                </div>
+            </Section>
+            
+            {/* Gallery */}
+            <Section title={translations.gallery[language]}>
+                <div className="flex justify-center flex-wrap gap-2 mb-8">
+                    {categories.map(cat => (
+                        <button 
+                            key={cat.key} 
+                            onClick={() => setActiveCategory(cat.key)}
+                            className={`px-4 py-2 text-base font-semibold rounded-full transition-colors ${activeCategory === cat.key ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}`}
+                        >
+                            {cat.label}
+                        </button>
+                    ))}
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {filteredImages.map((image, index) => (
+                        <AnimateOnScroll key={image.id} delay={index * 50}>
+                            <div className="relative group overflow-hidden rounded-lg cursor-pointer shadow-lg" onClick={() => onOpenImageModal({ src: image.src, alt: image.alt[language] })}>
+                                <img src={image.src} alt={image.alt[language]} className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-300" />
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-end">
+                                    <p className="text-white text-sm p-2 truncate">{image.alt[language]}</p>
+                                </div>
+                            </div>
+                        </AnimateOnScroll>
+                    ))}
+                </div>
+            </Section>
+            
+            {/* Newsletter */}
+            <Section title={translations.newsletterTitle[language]}>
+                <AnimateOnScroll>
+                    <Newsletter onSubscribe={onNewsletterSubscribe} />
                 </AnimateOnScroll>
-
-                {/* Testimonials */}
-                <AnimateOnScroll className="lg:col-span-3">
-                    <Section title={translations.testimonials[language]}>
-                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {testimonials.slice(0, 3).map((testimonial, index) => (
-                                <AnimateOnScroll key={index} delay={index * 100}>
-                                    <TestimonialCard 
-                                        testimonial={testimonial} 
-                                        onImageClick={() => onOpenImageModal({src: testimonial.imageUrl, alt: testimonial.author[language]})}
-                                    />
-                                </AnimateOnScroll>
-                            ))}
-                        </div>
-                    </Section>
-                </AnimateOnScroll>
-
-                 {/* Newsletter */}
-                <AnimateOnScroll className="lg:col-span-3">
-                    <Section title={translations.newsletterTitle[language]}>
-                        <Newsletter />
-                    </Section>
-                </AnimateOnScroll>
-            </div>
+            </Section>
         </>
     );
 };

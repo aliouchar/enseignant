@@ -1,5 +1,5 @@
 import React from 'react';
-import type { NewsItem, Publication, CV, Course, Supervision, ResearchProject, Testimonial, MultilingualString, GalleryImage, ResourceItem, MediaItem } from './types';
+import type { NewsItem, Publication, CV, Course, Supervision, ResearchProject, Testimonial, MultilingualString, GalleryImage, ResourceItem, MediaItem, UserAccount, SiteConfig, ContactMessage, NewsletterSubscriber, Task } from './types';
 
 // Helper for creating dummy file content and encoding it for download
 const createDummyFileUrl = (title: string, content: string) => {
@@ -20,6 +20,39 @@ const createDummyFileUrl = (title: string, content: string) => {
         return `data:text/plain,${encodeURIComponent(fileContent)}`;
     }
 };
+
+// User Accounts for Admin Panel
+export const userAccounts: UserAccount[] = [
+    { email: 'admin@portfolio.com', password: 'admin', role: 'admin' },
+    { email: 'user@portfolio.com', password: 'user', role: 'user' },
+];
+
+// Site Configuration
+export const initialSiteConfig: SiteConfig = {
+    headerTitle: { fr: "E. Dubois | Portfolio IA", en: "E. Dubois | AI Portfolio", ar: "إ. دوبوا | ملف الذكاء الاصطناعي" },
+    authorName: { fr: "Dr. Élise Dubois", en: "Dr. Élise Dubois", ar: "الدكتورة إليز دوبوا" },
+    heroSubtitle: { fr: "Maître de conférences en IA | Université de la Sorbonne", en: "Lecturer in AI | Sorbonne University", ar: "محاضرة في الذكاء الاصطناعي | جامعة السوربون" },
+    profilePicUrl: "https://images.unsplash.com/photo-1581093458791-9a6680c1bf10?q=80&w=400&auto=format&fit=crop",
+    contactEmail: "elise.dubois@sorbonne.fr",
+    contactPhone: "+33 1 23 45 67 89",
+    contactOffice: { fr: "Bâtiment C, Bureau 203", en: "Building C, Office 203", ar: "مبنى C، مكتب 203" },
+    socialLinks: {
+        linkedin: "https://www.linkedin.com/",
+        googleScholar: "https://scholar.google.com/",
+        twitter: "https://twitter.com/",
+        github: "https://github.com/",
+        researchGate: "https://www.researchgate.net/"
+    }
+};
+
+// Contact Form Messages
+export const contactMessages: ContactMessage[] = [];
+
+// Newsletter Subscribers
+export const newsletterSubscribers: NewsletterSubscriber[] = [];
+
+// Tasks
+export const tasks: Task[] = [];
 
 
 // SVG Icons
@@ -45,24 +78,13 @@ export const GitHubIcon = () => <svg xmlns="http://www.w3.org/2000/svg" classNam
 export const ResearchGateIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001.001C5.373.001 0 5.374 0 12.002c0 6.627 5.373 12.001 12.001 12.001 6.628 0 12.001-5.374 12.001-12.001C24.002 5.374 18.629.001 12.001.001zM8.28 17.154V9.33H5.617v7.824H8.28zm-1.332-8.91c.88 0 1.594-.68 1.594-1.522 0-.84-.714-1.522-1.594-1.522-.88 0-1.594.682-1.594 1.522 0 .842.714 1.522 1.594 1.522zm10.117 8.91h-2.664v-3.83c0-1.928-1.37-1.844-1.37-1.844s-1.33.084-1.33 1.844v3.83h-2.666V9.33h2.666v1.275c.002.002.625-1.275 2.664-1.275 2.664 0 2.664 3.03 2.664 3.03v4.794h.006z"/></svg>;
 export const BookOpenIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>;
 export const PencilIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z" /></svg>;
-export const ToolIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>;
+export const ToolIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0 3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>;
 export const DatasetIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4" /></svg>;
 export const ResourceListIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>;
 export const PodcastIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>;
 export const VideoIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>;
 export const ArticleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3h9M7 16h6M7 12h6M7 8h6" /></svg>;
 export const MenuIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>;
-
-// Header Info
-export const headerInfo: { name: MultilingualString } = {
-    name: {
-        fr: "Dr. Élise Dubois",
-        en: "Dr. Élise Dubois",
-        ar: "الدكتورة إليز دوبوا"
-    }
-};
-
-export const profilePicUrl = "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=300&auto=format&fit=crop";
 
 // Create a dummy CV file URL
 export const cvDownloadUrl = createDummyFileUrl('CV_Elise_Dubois', 'This is a placeholder for the full CV of Dr. Élise Dubois.');
@@ -71,400 +93,185 @@ export const cvDownloadUrl = createDummyFileUrl('CV_Elise_Dubois', 'This is a pl
 // News Items
 export const newsItems: NewsItem[] = [
     {
-        year: 2024,
+        id: 1, year: 2024,
         date: { fr: "15 Juil", en: "Jul 15", ar: "15 يوليو" },
         title: { fr: "Publication de notre dernier article sur l'IA éthique", en: "Our latest paper on Ethical AI has been published", ar: "نشر ورقتنا الأخيرة حول الذكاء الاصطناعي الأخلاقي" },
         content: { fr: "Notre recherche sur les cadres pour une IA responsable est maintenant disponible dans le 'Journal of AI Ethics'.", en: "Our research on frameworks for responsible AI is now available in the 'Journal of AI Ethics'.", ar: "بحثنا حول أطر الذكاء الاصطناعي المسؤول متاح الآن في 'مجلة أخلاقيات الذكاء الاصطناعي'." },
-        imageUrl: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=400&auto=format&fit=crop',
+        imageUrl: 'https://images.unsplash.com/photo-1678097337328-5f045c61b9ea?q=80&w=400&auto=format&fit=crop',
         link: { type: 'publication', id: 1 }
     },
     {
-        year: 2024,
+        id: 2, year: 2024,
         date: { fr: "20 Juin", en: "Jun 20", ar: "20 يونيو" },
         title: { fr: "Prix du meilleur article à la conférence AISTATS 2024", en: "Best Paper Award at AISTATS 2024 Conference", ar: "جائزة أفضل ورقة بحثية في مؤتمر AISTATS 2024" },
         content: { fr: "Notre article sur l'apprentissage fédéré a été récompensé pour sa contribution innovante.", en: "Our paper on federated learning has been awarded for its innovative contribution.", ar: "تم تكريم ورقتنا البحثية حول التعلم الفيدرالي لمساهمتها المبتكرة." },
-        imageUrl: 'https://images.unsplash.com/photo-1587825140708-df876c1d384e?q=80&w=400&auto=format&fit=crop',
+        imageUrl: 'https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=400&auto=format&fit=crop',
         link: { type: 'publication', id: 5 }
     },
     {
-        year: 2024,
+        id: 3, year: 2024,
         date: { fr: "02 Juin", en: "Jun 02", ar: "02 يونيو" },
         title: { fr: "Lancement du projet 'AI for Good'", en: "'AI for Good' project launched", ar: "إطلاق مشروع 'الذكاء الاصطناعي من أجل الخير'" },
         content: { fr: "Nous avons démarré un nouveau projet passionnant visant à utiliser l'IA pour résoudre des problèmes sociétaux.", en: "We have started an exciting new project aimed at using AI to solve societal challenges.", ar: "لقد بدأنا مشروعًا جديدًا ومثيرًا يهدف إلى استخدام الذكاء الاصطناعي لحل التحديات المجتمعية." },
-        imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=400&auto=format&fit=crop',
+        imageUrl: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=400&auto=format&fit=crop',
         link: { type: 'research', id: 101 }
     },
     {
-        year: 2024,
+        id: 4, year: 2024,
         date: { fr: "05 Mai", en: "May 05", ar: "05 مايو" },
         title: { fr: "Soutenance de thèse de Chloé Lefèvre", en: "Thesis Defense of Chloé Lefèvre", ar: "مناقشة أطروحة كلوي لوفيفر" },
         content: { fr: "Félicitations à mon étudiante Chloé Lefèvre qui a brillamment soutenu sa thèse sur l'IA explicable.", en: "Congratulations to my student Chloé Lefèvre who successfully defended her thesis on Explainable AI.", ar: "تهانينا لطالبتي كلوي لوفيفر التي نجحت في الدفاع عن أطروحتها حول الذكاء الاصطناعي القابل للتفسير." },
-        imageUrl: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=400&auto=format&fit=crop',
+        imageUrl: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=400&auto=format&fit=crop',
     },
      {
-        year: 2023,
+        id: 5, year: 2023,
         date: { fr: "10 Déc", en: "Dec 10", ar: "10 ديسمبر" },
         title: { fr: "Conférence principale à NeurIPS 2023", en: "Keynote at NeurIPS 2023", ar: "كلمة رئيسية في مؤتمر NeurIPS 2023" },
         content: { fr: "Présentation de nos travaux sur l'apprentissage par renforcement à la conférence NeurIPS 2023.", en: "Presented our work on reinforcement learning at the NeurIPS 2023 conference.", ar: "قدمنا عملنا حول التعلم المعزز في مؤتمر NeurIPS 2023." },
-        imageUrl: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=400&auto=format&fit=crop',
+        imageUrl: 'https://images.unsplash.com/photo-1543269664-7e949942a45a?q=80&w=400&auto=format&fit=crop',
     },
     {
-        year: 2023,
+        id: 6, year: 2023,
         date: { fr: "1er Sep", en: "Sep 1", ar: "1 سبتمبر" },
         title: { fr: "Nouveau cours sur l'Apprentissage Profond Avancé", en: "New course on Advanced Deep Learning", ar: "دورة جديدة حول التعلم العميق المتقدم" },
-        content: { fr: "Un nouveau cours de niveau Master 2 est désormais disponible, couvrant les dernières architectures et techniques en apprentissage profond.", en: "A new Master's level course is now available, covering the latest architectures and techniques in deep learning.", ar: "دورة جديدة على مستوى الماجستير متاحة الآن، وتغطي أحدث البنى والتقنيات في التعلم العميق." },
-        imageUrl: 'https://images.unsplash.com/photo-1591115765321-04530094a979?q=80&w=400&auto=format&fit=crop',
-    },
+        content: { fr: "Un nouveau cours de niveau Master 2 est désormais disponible, couvrant les dernières architectures de réseaux de neurones.", en: "A new Master's level course is now available, covering the latest neural network architectures.", ar: "دورة جديدة على مستوى الماجستير متاحة الآن، تغطي أحدث معماريات الشبكات العصبية." },
+        imageUrl: 'https://images.unsplash.com/photo-1531545514256-b1400bc00f31?q=80&w=400&auto=format&fit=crop',
+    }
 ];
 
-// Publications
 export const publications: Publication[] = [
     {
         id: 1, year: 2024,
-        type: { fr: "Article de Journal", en: "Journal Article", ar: "مقال في مجلة" },
-        title: { fr: "Un Cadre pour l'IA Éthique et Responsable", en: "A Framework for Ethical and Responsible AI", ar: "إطار عمل للذكاء الاصطناعي الأخلاقي والمسؤول" },
-        authors: ["E. Dubois", "J. Martin"],
+        type: { fr: "Article de journal", en: "Journal Article", ar: "مقال صحفي" },
+        title: { fr: "Cadres pour une IA Responsable", en: "Frameworks for Responsible AI", ar: "أطر للذكاء الاصطناعي المسؤول" },
+        authors: ["Dr. Élise Dubois", "Dr. Jean Dupont"],
         journal: { fr: "Journal of AI Ethics", en: "Journal of AI Ethics", ar: "مجلة أخلاقيات الذكاء الاصطناعي" },
-        abstract: { fr: "Cet article propose un cadre complet pour le développement et le déploiement de systèmes d'IA éthiques. Nous abordons les questions de transparence, d'équité, de responsabilité et de confidentialité, en proposant des lignes directrices pratiques pour les chercheurs et les praticiens.", en: "This paper proposes a comprehensive framework for the development and deployment of ethical AI systems. We address issues of transparency, fairness, accountability, and privacy, offering practical guidelines for researchers and practitioners.", ar: "تقترح هذه الورقة إطارًا شاملاً لتطوير ونشر أنظمة الذكاء الاصطناعي الأخلاقية. نتناول قضايا الشفافية والإنصاف والمساءلة والخصوصية، ونقدم إرشادات عملية للباحثين والممارسين." },
-        content: { fr: "Le contenu détaillé explore l'implémentation du cadre, y compris des études de cas dans les domaines de la santé et de la finance, et analyse les défis réglementaires et sociétaux.", en: "The detailed content explores the implementation of the framework, including case studies in healthcare and finance, and analyzes regulatory and societal challenges.", ar: "يستكشف المحتوى التفصيلي تنفيذ الإطار، بما في ذلك دراسات الحالة في الرعاية الصحية والتمويل، ويحلل التحديات التنظيمية والمجتمعية." },
-        downloadUrl: createDummyFileUrl("Ethical_AI_Framework", "This is the content of the ethical AI framework paper."),
+        abstract: { fr: "Cet article propose un nouveau cadre pour développer des systèmes d'IA éthiques et responsables...", en: "This paper proposes a new framework for developing ethical and responsible AI systems...", ar: "تقترح هذه الورقة إطارًا جديدًا لتطوير أنظمة ذكاء اصطناعي أخلاقية ومسؤولة..." },
+        content: { fr: "Contenu détaillé de l'article sur les cadres pour une IA responsable.", en: "Detailed content of the paper on frameworks for responsible AI.", ar: "محتوى مفصل للورقة حول أطر الذكاء الاصطناعي المسؤول." },
+        downloadUrl: createDummyFileUrl('Responsible_AI_Frameworks', 'Full content of the publication on responsible AI frameworks.'),
         researchProjectId: 101,
+    },
+    {
+        id: 5, year: 2024,
+        type: { fr: "Article de conférence", en: "Conference Paper", ar: "ورقة مؤتمر" },
+        title: { fr: "Apprentissage Fédéré Efficace", en: "Efficient Federated Learning", ar: "التعلم الفيدرالي الفعال" },
+        authors: ["Dr. Élise Dubois", "Chloé Lefèvre"],
+        journal: { fr: "AISTATS 2024", en: "AISTATS 2024", ar: "AISTATS 2024" },
+        abstract: { fr: "Nous présentons une nouvelle méthode pour optimiser l'apprentissage fédéré...", en: "We present a new method for optimizing federated learning...", ar: "نقدم طريقة جديدة لتحسين التعلم الفيدرالي..." },
+        content: { fr: "Contenu détaillé de l'article sur l'apprentissage fédéré.", en: "Detailed content of the paper on federated learning.", ar: "محتوى مفصل للورقة حول التعلم الفيدرالي." },
+        downloadUrl: createDummyFileUrl('Federated_Learning', 'Full content of the publication on federated learning.'),
+    }
+];
+
+export const cv: CV = {
+    education: [
+        { id: 1, degree: { fr: "Doctorat en Intelligence Artificielle", en: "PhD in Artificial Intelligence", ar: "دكتوراه في الذكاء الاصطناعي" }, institution: { fr: "Sorbonne Université", en: "Sorbonne University", ar: "جامعة السوربون" }, year: 2018 },
+        { id: 2, degree: { fr: "Master en Informatique", en: "Master in Computer Science", ar: "ماجستير في علوم الحاسوب" }, institution: { fr: "ENS Paris", en: "ENS Paris", ar: "المدرسة العليا للأساتذة بباريس" }, year: 2015 },
+    ],
+    experience: [
+        { id: 1, role: { fr: "Maître de conférences", en: "Lecturer", ar: "محاضر" }, institution: { fr: "Sorbonne Université", en: "Sorbonne University", ar: "جامعة السوربون" }, period: { fr: "2020 - Présent", en: "2020 - Present", ar: "2020 - حتى الآن" } },
+        { id: 2, role: { fr: "Chercheur postdoctoral", en: "Postdoctoral Researcher", ar: "باحث ما بعد الدكتوراه" }, institution: { fr: "MIT", en: "MIT", ar: "معهد ماساتشوستس للتكنولوجيا" }, period: { fr: "2018 - 2020", en: "2018 - 2020", ar: "2018 - 2020" } },
+    ],
+    projects: [
+        { id: 1, text: { fr: "Projet 'AI for Good'", en: "'AI for Good' Project", ar: "مشروع 'الذكاء الاصطناعي من أجل الخير'" }, researchProjectId: 101 },
+        { id: 2, text: { fr: "Interprétabilité des Modèles d'Apprentissage Profond", en: "Interpretability of Deep Learning Models", ar: "قابلية تفسير نماذج التعلم العميق" }, researchProjectId: 102 },
+    ],
+    awards: [
+        { id: 1, text: { fr: "Prix du meilleur article, AISTATS 2024", en: "Best Paper Award, AISTATS 2024", ar: "جائزة أفضل ورقة بحثية، AISTATS 2024" } },
+        { id: 2, text: { fr: "Bourse d'excellence doctorale", en: "Doctoral Excellence Scholarship", ar: "منحة الدكتوراه للتميز" } },
+    ],
+    skills: [
+        { id: 1, text: { fr: "Python, PyTorch, TensorFlow", en: "Python, PyTorch, TensorFlow", ar: "بايثون، باي تورش، تينسرفلو" } },
+        { id: 2, text: { fr: "Apprentissage par renforcement, NLP, Vision par ordinateur", en: "Reinforcement Learning, NLP, Computer Vision", ar: "التعلم المعزز، معالجة اللغات الطبيعية، رؤية الحاسوب" } },
+    ],
+};
+
+export const courses: Course[] = [
+    {
+        id: 1, year: 2024,
+        title: { fr: "Introduction à l'Intelligence Artificielle", en: "Introduction to Artificial Intelligence", ar: "مقدمة في الذكاء الاصطناعي" },
+        level: { fr: "Licence 3", en: "Undergraduate (Year 3)", ar: "بكالوريوس سنة ثالثة" },
+        description: { fr: "Ce cours couvre les concepts fondamentaux de l'IA.", en: "This course covers the fundamental concepts of AI.", ar: "يغطي هذا المقرر المفاهيم الأساسية للذكاء الاصطناعي." },
+        syllabus: [{ fr: "Agents intelligents", en: "Intelligent Agents", ar: "الوكلاء الأذكياء" }],
+        objectives: [{ fr: "Comprendre les bases de l'IA", en: "Understand the basics of AI", ar: "فهم أساسيات الذكاء الاصطناعي" }],
+        downloadUrl: createDummyFileUrl('Intro_AI_Syllabus', 'Full syllabus for the Introduction to AI course.'),
     },
     {
         id: 2, year: 2023,
-        type: { fr: "Acte de Conférence", en: "Conference Paper", ar: "ورقة مؤتمر" },
-        title: { fr: "Apprentissage par Renforcement Profond pour les Systèmes Complexes", en: "Deep Reinforcement Learning for Complex Systems", ar: "التعلم المعزز العميق للأنظمة المعقدة" },
-        authors: ["E. Dubois", "A. Li", "S. Chen"],
-        journal: { fr: "Proceedings of NeurIPS 2023", en: "Proceedings of NeurIPS 2023", ar: "وقائع مؤتمر NeurIPS 2023" },
-        abstract: { fr: "Nous présentons un nouvel algorithme d'apprentissage par renforcement qui surpasse les méthodes existantes dans des environnements simulés complexes, démontrant une meilleure efficacité d'échantillonnage et une plus grande stabilité.", en: "We present a novel reinforcement learning algorithm that outperforms existing methods in complex simulated environments, demonstrating improved sample efficiency and stability.", ar: "نقدم خوارزمية تعلم معزز جديدة تتفوق على الطرق الحالية في بيئات محاكاة معقدة، وتظهر كفاءة عينة واستقرارًا محسنًا." },
-        content: { fr: "L'article détaille l'architecture du modèle, les expériences menées sur plusieurs benchmarks, et une analyse approfondie des résultats obtenus.", en: "The paper details the model architecture, experiments conducted on multiple benchmarks, and a thorough analysis of the results.", ar: "تفصل الورقة بنية النموذج، والتجارب التي أجريت على معايير متعددة، وتحليلًا شاملاً للنتائج." },
-        downloadUrl: createDummyFileUrl("Deep_RL_Paper", "This is the content of the Deep Reinforcement Learning paper."),
-        researchProjectId: 102,
-    },
-    {
-        id: 3, year: 2023,
-        type: { fr: "Article d'Atelier", en: "Workshop Paper", ar: "ورقة ورشة عمل" },
-        title: { fr: "Interprétabilité des Modèles de Traitement du Langage", en: "Interpretability of Language Models", ar: "قابلية تفسير نماذج اللغة" },
-        authors: ["E. Dubois", "M. Garcia"],
-        journal: { fr: "NeurIPS 2023 Workshop on Explainable AI", en: "NeurIPS 2023 Workshop on Explainable AI", ar: "ورشة عمل NeurIPS 2023 حول الذكاء الاصطناعي القابل للتفسير" },
-        abstract: { fr: "Cette étude explore diverses techniques pour visualiser et comprendre les mécanismes d'attention dans les grands modèles de langage.", en: "This study explores various techniques for visualizing and understanding attention mechanisms in large language models.", ar: "تستكشف هذه الدراسة تقنيات مختلفة لتصور وفهم آليات الانتباه في نماذج اللغة الكبيرة." },
-        content: { fr: "Nous appliquons des méthodes telles que LIME et SHAP aux transformeurs et discutons des implications pour la confiance et le débogage des modèles.", en: "We apply methods such as LIME and SHAP to transformers and discuss the implications for model trust and debugging.", ar: "نطبق طرقًا مثل LIME و SHAP على المحولات ونناقش الآثار المترتبة على ثقة النموذج وتصحيح الأخطاء." },
-    },
-    {
-        id: 4, year: 2022,
-        type: { fr: "Article de Journal", en: "Journal Article", ar: "مقال في مجلة" },
-        title: { fr: "Génération d'Images de Haute Fidélité avec des Modèles de Diffusion", en: "High-Fidelity Image Generation with Diffusion Models", ar: "توليد صور عالية الدقة باستخدام نماذج الانتشار" },
-        authors: ["E. Dubois", "L. Kim", "P. Schmidt"],
-        journal: { fr: "Transactions on Pattern Analysis and Machine Intelligence (TPAMI)", en: "Transactions on Pattern Analysis and Machine Intelligence (TPAMI)", ar: "معاملات تحليل الأنماط والذكاء الآلي (TPAMI)" },
-        abstract: { fr: "Nous proposons une nouvelle architecture de modèle de diffusion qui atteint des performances de pointe dans la génération d'images photoréalistes.", en: "We propose a novel diffusion model architecture that achieves state-of-the-art performance in photorealistic image generation.", ar: "نقترح بنية نموذج انتشار جديدة تحقق أداءً متطورًا في توليد الصور الواقعية." },
-        content: { fr: "Le contenu couvre la formulation mathématique, les détails de l'implémentation, et des comparaisons qualitatives et quantitatives avec les GANs et les VAEs.", en: "The content covers the mathematical formulation, implementation details, and both qualitative and quantitative comparisons with GANs and VAEs.", ar: "يغطي المحتوى الصيغة الرياضية وتفاصيل التنفيذ ومقارنات نوعية وكمية مع شبكات GANs و VAEs." },
-        researchProjectId: 102,
-    },
-     {
-        id: 5, year: 2024,
-        type: { fr: "Acte de Conférence", en: "Conference Paper", ar: "ورقة مؤتمر" },
-        title: { fr: "Apprentissage Fédéré Robuste contre les Attaques par Empoisonnement", en: "Robust Federated Learning against Poisoning Attacks", ar: "التعلم الفيدرالي القوي ضد هجمات التسميم" },
-        authors: ["E. Dubois", "T. Nguyen", "C. Lefèvre"],
-        journal: { fr: "Proceedings of AISTATS 2024", en: "Proceedings of AISTATS 2024", ar: "وقائع مؤتمر AISTATS 2024" },
-        abstract: { fr: "Cet article présente un mécanisme de défense pour l'apprentissage fédéré qui maintient la performance du modèle même en présence de clients malveillants.", en: "This paper introduces a defense mechanism for federated learning that maintains model performance even in the presence of malicious clients.", ar: "تقدم هذه الورقة آلية دفاع للتعلم الفيدرالي تحافظ على أداء النموذج حتى في وجود عملاء ضارين." },
-        content: { fr: "Nous validons notre approche théoriquement et empiriquement sur plusieurs jeux de données, montrant sa supériorité par rapport aux méthodes de pointe existantes.", en: "We validate our approach theoretically and empirically on several datasets, showing its superiority over existing state-of-the-art methods.", ar: "نتحقق من صحة نهجنا نظريًا وتجريبيًا على مجموعات بيانات متعددة، مما يظهر تفوقه على الطرق الحالية المتطورة." },
-        downloadUrl: createDummyFileUrl("Robust_Federated_Learning", "This is the content of the Robust Federated Learning paper."),
-        researchProjectId: 103,
+        title: { fr: "Apprentissage Profond Avancé", en: "Advanced Deep Learning", ar: "التعلم العميق المتقدم" },
+        level: { fr: "Master 2", en: "Graduate (Master Year 2)", ar: "ماجستير سنة ثانية" },
+        description: { fr: "Un cours sur les dernières architectures de réseaux de neurones.", en: "A course on the latest neural network architectures.", ar: "دورة حول أحدث معماريات الشبكات العصبية." },
+        syllabus: [{ fr: "Transformers", en: "Transformers", ar: "المحولات" }, { fr: "GANs", en: "GANs", ar: "شبكات الخصومة التوليدية" }],
+        objectives: [{ fr: "Maîtriser les architectures modernes", en: "Master modern architectures", ar: "إتقان المعماريات الحديثة" }],
+        downloadUrl: createDummyFileUrl('Advanced_DL_Syllabus', 'Full syllabus for the Advanced Deep Learning course.'),
     }
 ];
 
-// Research Projects
+export const supervisions: Supervision[] = [
+    { 
+        id: 1, 
+        level: { fr: "Thèse", en: "PhD Thesis", ar: "أطروحة دكتوراه" }, 
+        studentName: { fr: "Chloé Lefèvre", en: "Chloé Lefèvre", ar: "كلوي لوفيفر" },
+        topic: { fr: "IA Explicable pour le Diagnostic Médical", en: "Explainable AI for Medical Diagnosis", ar: "الذكاء الاصطناعي القابل للتفسير للتشخيص الطبي" }, 
+        description: { fr: "Cette thèse se concentre sur le développement de nouvelles méthodes pour rendre les modèles d'apprentissage profond utilisés dans l'imagerie médicale plus transparents et interprétables par les cliniciens.", en: "This thesis focuses on developing new methods to make deep learning models used in medical imaging more transparent and interpretable for clinicians.", ar: "تركز هذه الأطروحة على تطوير أساليب جديدة لجعل نماذج التعلم العميق المستخدمة في التصوير الطبي أكثر شفافية وقابلية للتفسير من قبل الأطباء." },
+        year: 2024 
+    },
+    { 
+        id: 2, 
+        level: { fr: "Master", en: "Master's Thesis", ar: "رسالة ماجستير" }, 
+        studentName: { fr: "Lucas Moreau", en: "Lucas Moreau", ar: "لوكاس مورو" },
+        topic: { fr: "Détection d'Anomalies dans les Séries Temporelles Financières", en: "Anomaly Detection in Financial Time Series", ar: "كشف الشذوذ في السلاسل الزمنية المالية" }, 
+        description: { fr: "Le projet explore l'utilisation de modèles basés sur les Transformers pour la détection en temps réel d'anomalies sur les marchés financiers, en lien avec le projet sur l'interprétabilité des modèles.", en: "The project explores the use of Transformer-based models for real-time anomaly detection in financial markets, linked to the project on model interpretability.", ar: "يستكشف المشروع استخدام النماذج القائمة على المحولات للكشف عن الحالات الشاذة في الأسواق المالية في الوقت الفعلي، ويرتبط بمشروع قابلية تفسير النماذج." },
+        year: 2023, 
+        researchProjectId: 102 
+    },
+];
+
 export const researchProjects: ResearchProject[] = [
     {
         id: 101, year: 2024,
-        title: { fr: "IA pour le Bien Social", en: "AI for Social Good", ar: "الذكاء الاصطناعي من أجل الخير الاجتماعي" },
-        summary: { fr: "Ce projet vise à appliquer des techniques d'IA de pointe pour résoudre des problèmes urgents dans les domaines de la santé, de l'environnement et de l'éducation.", en: "This project aims to apply cutting-edge AI techniques to solve pressing issues in healthcare, environment, and education.", ar: "يهدف هذا المشروع إلى تطبيق تقنيات الذكاء الاصطناعي المتطورة لحل القضايا الملحة في مجالات الرعاية الصحية والبيئة والتعليم." },
-        fullDescription: { fr: "Nous collaborons avec des ONG et des institutions publiques pour développer des modèles prédictifs pour la propagation des maladies, des systèmes pour optimiser la distribution des ressources et des outils d'apprentissage personnalisés. L'accent est mis sur la création de solutions éthiques, équitables et facilement déployables.", en: "We collaborate with NGOs and public institutions to develop predictive models for disease spread, systems to optimize resource allocation, and personalized learning tools. The focus is on creating ethical, fair, and easily deployable solutions.", ar: "نتعاون مع المنظمات غير الحكومية والمؤسسات العامة لتطوير نماذج تنبؤية لانتشار الأمراض، وأنظمة لتحسين تخصيص الموارد، وأدوات تعليمية مخصصة. يتم التركيز على إيجاد حلول أخلاقية وعادلة وسهلة النشر." },
-        outcomes: [
-            { fr: "Développement d'un modèle prédictif pour la santé publique.", en: "Developed a predictive model for public health.", ar: "تطوير نموذج تنبؤي للصحة العامة." },
-            { fr: "Publication dans le Journal of AI Ethics.", en: "Publication in the Journal of AI Ethics.", ar: "نشر في مجلة أخلاقيات الذكاء الاصطناعي." },
-            { fr: "Partenariat établi avec l'Organisation Mondiale de la Santé.", en: "Established partnership with the World Health Organization.", ar: "إقامة شراكة مع منظمة الصحة العالمية." }
-        ],
-        downloadUrl: createDummyFileUrl("AI_For_Good_Project", "This is the project description for AI for Social Good."),
+        title: { fr: "Projet 'AI for Good'", en: "'AI for Good' Project", ar: "مشروع 'الذكاء الاصطناعي من أجل الخير'" },
+        summary: { fr: "Utiliser l'IA pour résoudre des problèmes sociétaux.", en: "Using AI to solve societal challenges.", ar: "استخدام الذكاء الاصطناعي لحل التحديات المجتمعية." },
+        fullDescription: { fr: "Description complète du projet 'AI for Good'.", en: "Full description of the 'AI for Good' project.", ar: "الوصف الكامل لمشروع 'الذكاء الاصطناعي من أجل الخير'." },
+        outcomes: [{ fr: "Publication dans le Journal of AI Ethics", en: "Publication in the Journal of AI Ethics", ar: "نشر في مجلة أخلاقيات الذكاء الاصطناعي" }],
+        downloadUrl: createDummyFileUrl('AI_for_Good', 'Full details of the AI for Good project.'),
     },
     {
-        id: 102, year: 2022,
-        title: { fr: "Modèles Génératifs Avancés", en: "Advanced Generative Models", ar: "النماذج التوليدية المتقدمة" },
-        summary: { fr: "Recherche sur les nouvelles architectures pour la génération d'images, de textes et de données structurées, en se concentrant sur la qualité, la diversité et le contrôle.", en: "Research on novel architectures for generating images, text, and structured data, focusing on quality, diversity, and control.", ar: "بحث حول معماريات جديدة لتوليد الصور والنصوص والبيانات المهيكلة، مع التركيز على الجودة والتنوع والتحكم." },
-        fullDescription: { fr: "Ce projet explore les fondements théoriques des modèles de diffusion, des transformeurs et des réseaux antagonistes génératifs (GANs). Nous cherchons à améliorer leur stabilité lors de l'entraînement, à réduire leurs biais et à permettre un contrôle plus fin sur les sorties générées, ouvrant la voie à de nouvelles applications créatives et scientifiques.", en: "This project explores the theoretical foundations of diffusion models, transformers, and generative adversarial networks (GANs). We aim to improve their training stability, reduce biases, and enable finer control over the generated outputs, paving the way for new creative and scientific applications.", ar: "يستكشف هذا المشروع الأسس النظرية لنماذج الانتشار والمحولات والشبكات التوليدية التنافسية (GANs). نهدف إلى تحسين استقرار تدريبها وتقليل التحيزات وتمكين تحكم أدق في المخرجات المولدة، مما يمهد الطريق لتطبيقات إبداعية وعلمية جديدة." },
-        outcomes: [
-             { fr: "Création d'une nouvelle architecture de modèle de diffusion (TPAMI 2022).", en: "Created a new diffusion model architecture (TPAMI 2022).", ar: "إنشاء بنية نموذج انتشار جديدة (TPAMI 2022)." },
-             { fr: "Développement d'une bibliothèque open-source pour l'évaluation des modèles génératifs.", en: "Developed an open-source library for generative model evaluation.", ar: "تطوير مكتبة مفتوحة المصدر لتقييم النماذج التوليدية." }
-        ],
-    },
-     {
-        id: 103, year: 2023,
-        title: { fr: "Apprentissage Fédéré et Confidentialité", en: "Federated Learning and Privacy", ar: "التعلم الفيدرالي والخصوصية" },
-        summary: { fr: "Développer des algorithmes d'apprentissage fédéré qui préservent la confidentialité des données tout en garantissant la robustesse et l'efficacité des modèles.", en: "Developing federated learning algorithms that preserve data privacy while ensuring model robustness and efficiency.", ar: "تطوير خوارزميات التعلم الفيدرالي التي تحافظ على خصوصية البيانات مع ضمان قوة وكفاءة النماذج." },
-        fullDescription: { fr: "Ce projet s'attaque au défi de l'entraînement de modèles d'IA sur des données décentralisées sans compromettre la vie privée des utilisateurs. Nous explorons des techniques de cryptographie, de confidentialité différentielle et des mécanismes de défense contre les attaques adverses dans le cadre de l'apprentissage fédéré.", en: "This project addresses the challenge of training AI models on decentralized data without compromising user privacy. We explore cryptographic techniques, differential privacy, and defense mechanisms against adversarial attacks within the federated learning framework.", ar: "يعالج هذا المشروع تحدي تدريب نماذج الذكاء الاصطناعي على بيانات لا مركزية دون المساس بخصوصية المستخدم. نستكشف تقنيات التشفير والخصوصية التفاضلية وآليات الدفاع ضد الهجمات العدائية في إطار التعلم الفيدرالي." },
-        outcomes: [
-             { fr: "Proposition d'un nouvel algorithme d'agrégation sécurisé.", en: "Proposed a new secure aggregation algorithm.", ar: "اقتراح خوارزمية تجميع آمنة جديدة." },
-             { fr: "Publication primée à AISTATS 2024.", en: "Award-winning publication at AISTATS 2024.", ar: "نشر حائز على جائزة في AISTATS 2024." }
-        ],
-        downloadUrl: createDummyFileUrl("Federated_Learning_Privacy", "Project description for Federated Learning and Privacy."),
+        id: 102, year: 2023,
+        title: { fr: "Interprétabilité des Modèles", en: "Model Interpretability", ar: "قابلية تفسير النماذج" },
+        summary: { fr: "Développer des méthodes pour rendre les modèles d'IA plus transparents.", en: "Developing methods to make AI models more transparent.", ar: "تطوير أساليب لجعل نماذج الذكاء الاصطناعي أكثر شفافية." },
+        fullDescription: { fr: "Description complète du projet sur l'interprétabilité.", en: "Full description of the interpretability project.", ar: "الوصف الكامل لمشروع قابلية التفسير." },
+        outcomes: [{ fr: "Nouvel algorithme LIME", en: "New LIME algorithm", ar: "خوارزمية LIME جديدة" }],
     }
 ];
 
-// CV Data
-export const cv: CV = {
-    education: [
-        { degree: { fr: "Doctorat en Intelligence Artificielle", en: "PhD in Artificial Intelligence", ar: "دكتوراه في الذكاء الاصطناعي" }, institution: { fr: "Université de la Sorbonne", en: "Sorbonne University", ar: "جامعة السوربون" }, year: 2018 },
-        { degree: { fr: "Master en Informatique", en: "M.Sc. in Computer Science", ar: "ماجستير في علوم الحاسب" }, institution: { fr: "ENS Paris", en: "ENS Paris", ar: "المدرسة العليا للأساتذة بباريس" }, year: 2015 },
-        { degree: { fr: "Licence en Mathématiques et Informatique", en: "B.Sc. in Mathematics and Computer Science", ar: "بكالوريوس في الرياضيات وعلوم الحاسب" }, institution: { fr: "Université Pierre et Marie Curie", en: "Pierre and Marie Curie University", ar: "جامعة بيير وماري كوري" }, year: 2013 },
-    ],
-    experience: [
-        { role: { fr: "Maître de conférences", en: "Lecturer", ar: "محاضر" }, institution: { fr: "Université de la Sorbonne", en: "Sorbonne University", ar: "جامعة السوربون" }, period: { fr: "2018 - Présent", en: "2018 - Present", ar: "2018 - حتى الآن" } },
-        { role: { fr: "Chercheur invité", en: "Visiting Researcher", ar: "باحث زائر" }, institution: { fr: "MIT CSAIL", en: "MIT CSAIL", ar: "معهد ماساتشوستس للتكنولوجيا CSAIL" }, period: { fr: "2022 (6 mois)", en: "2022 (6 months)", ar: "2022 (6 أشهر)" } },
-        { role: { fr: "Stagiaire de recherche", en: "Research Intern", ar: "متدرب باحث" }, institution: { fr: "Google AI, Paris", en: "Google AI, Paris", ar: "Google AI، باريس" }, period: { fr: "Été 2017", en: "Summer 2017", ar: "صيف 2017" } },
-    ],
-    projects: [
-        { text: { fr: "IA pour le Bien Social", en: "AI for Social Good", ar: "الذكاء الاصطناعي من أجل الخير الاجتماعي" }, researchProjectId: 101 },
-        { text: { fr: "Modèles Génératifs Avancés", en: "Advanced Generative Models", ar: "النماذج التوليدية المتقدمة" }, researchProjectId: 102 },
-        { text: { fr: "Apprentissage Fédéré et Confidentialité", en: "Federated Learning and Privacy", ar: "التعلم الفيدرالي والخصوصية" }, researchProjectId: 103 },
-    ],
-    awards: [
-        { fr: "Prix du Meilleur Article, AISTATS 2024", en: "Best Paper Award, AISTATS 2024", ar: "جائزة أفضل ورقة بحثية، AISTATS 2024" },
-        { fr: "Bourse d'Excellence Doctorale 'L'Oréal-UNESCO Pour les Femmes et la Science'", en: "'L'Oréal-UNESCO For Women in Science' Doctoral Fellowship", ar: "زمالة الدكتوراه 'لوريال-يونسكو للمرأة في العلوم'" },
-        { fr: "Meilleur Article Étudiant, Conférence ICML 2018", en: "Best Student Paper, ICML Conference 2018", ar: "جائزة أفضل ورقة طالب، مؤتمر ICML 2018" },
-    ],
-    skills: [
-        { fr: "Apprentissage Profond (TensorFlow, PyTorch, JAX)", en: "Deep Learning (TensorFlow, PyTorch, JAX)", ar: "التعلم العميق (TensorFlow, PyTorch, JAX)" },
-        { fr: "Traitement du Langage Naturel (NLP)", en: "Natural Language Processing (NLP)", ar: "معالجة اللغات الطبيعية (NLP)" },
-        { fr: "Apprentissage Fédéré", en: "Federated Learning", ar: "التعلم الفيدرالي" },
-        { fr: "IA Explicable (XAI)", en: "Explainable AI (XAI)", ar: "الذكاء الاصطناعي القابل للتفسير (XAI)" },
-        { fr: "Python, C++, Java", en: "Python, C++, Java", ar: "Python, C++, Java" },
-    ]
-};
-
-// Courses Data
-export const courses: Course[] = [
-    {
-        id: 201, year: 2024,
-        title: { fr: "Introduction à l'Apprentissage Automatique", en: "Introduction to Machine Learning", ar: "مقدمة في تعلم الآلة" },
-        level: { fr: "Master 1", en: "Master 1st Year", ar: "ماجستير سنة أولى" },
-        description: { fr: "Un cours fondamental sur les concepts, techniques et algorithmes clés de l'apprentissage automatique.", en: "A foundational course on the key concepts, techniques, and algorithms of machine learning.", ar: "مقرر أساسي حول المفاهيم والتقنيات والخوارزميات الرئيسية لتعلم الآلة." },
-        objectives: [
-            {fr: "Comprendre les différences entre apprentissage supervisé, non supervisé et par renforcement.", en: "Understand the differences between supervised, unsupervised, and reinforcement learning.", ar: "فهم الفروق بين التعلم الخاضع للإشراف وغير الخاضع للإشراف والتعلم المعزز."},
-            {fr: "Implémenter des algorithmes classiques comme la régression, les SVM et les arbres de décision.", en: "Implement classic algorithms like regression, SVMs, and decision trees.", ar: "تنفيذ الخوارزميات الكلاسيكية مثل الانحدار وآلات المتجهات الداعمة وأشجار القرار."},
-            {fr: "Évaluer et comparer les performances des modèles.", en: "Evaluate and compare model performance.", ar: "تقييم ومقارنة أداء النماذج."},
-        ],
-        syllabus: [
-            {fr: "Semaine 1-2: Régression Linéaire et Logistique", en: "Week 1-2: Linear and Logistic Regression", ar: "الأسبوع 1-2: الانحدار الخطي واللوجستي"},
-            {fr: "Semaine 3: Machines à Vecteurs de Support (SVM)", en: "Week 3: Support Vector Machines (SVM)", ar: "الأسبوع 3: آلات المتجهات الداعمة (SVM)"},
-            {fr: "Semaine 4: Arbres de Décision et Forêts Aléatoires", en: "Week 4: Decision Trees and Random Forests", ar: "الأسبوع 4: أشجار القرار والغابات العشوائية"},
-            {fr: "Semaine 5: Clustering (K-Means, DBSCAN)", en: "Week 5: Clustering (K-Means, DBSCAN)", ar: "الأسبوع 5: التجميع (K-Means, DBSCAN)"},
-        ],
-        downloadUrl: createDummyFileUrl("Intro_ML_Syllabus", "Syllabus for Introduction to Machine Learning."),
-    },
-    {
-        id: 202, year: 2023,
-        title: { fr: "Apprentissage Profond Avancé", en: "Advanced Deep Learning", ar: "التعلم العميق المتقدم" },
-        level: { fr: "Master 2", en: "Master 2nd Year", ar: "ماجستير سنة ثانية" },
-        description: { fr: "Ce cours explore les architectures de réseaux de neurones de pointe et leurs applications.", en: "This course explores state-of-the-art neural network architectures and their applications.", ar: "يستكشف هذا المقرر معماريات الشبكات العصبية المتطورة وتطبيقاتها." },
-        objectives: [
-            {fr: "Maîtriser les architectures de type Transformer.", en: "Master Transformer architectures.", ar: "إتقان معماريات المحولات."},
-            {fr: "Comprendre et implémenter des modèles génératifs (GANs, VAEs, Diffusion).", en: "Understand and implement generative models (GANs, VAEs, Diffusion).", ar: "فهم وتنفيذ النماذج التوليدية (GANs, VAEs, Diffusion)."},
-            {fr: "Explorer l'apprentissage auto-supervisé.", en: "Explore self-supervised learning.", ar: "استكشاف التعلم ذاتي الإشراف."},
-        ],
-        syllabus: [
-            {fr: "Module 1: Transformers et Mécanismes d'Attention", en: "Module 1: Transformers and Attention Mechanisms", ar: "الوحدة 1: المحولات وآليات الانتباه"},
-            {fr: "Module 2: Modèles Génératifs", en: "Module 2: Generative Models", ar: "الوحدة 2: النماذج التوليدية"},
-            {fr: "Module 3: Apprentissage par Graphes Neuronaux", en: "Module 3: Graph Neural Networks", ar: "الوحدة 3: شبكات الرسوم البيانية العصبية"},
-        ],
-        downloadUrl: createDummyFileUrl("Advanced_DL_Syllabus", "Syllabus for Advanced Deep Learning."),
-    },
-     {
-        id: 203, year: 2024,
-        title: { fr: "Python pour la Science des Données", en: "Python for Data Science", ar: "بايثون لعلوم البيانات" },
-        level: { fr: "Licence 3", en: "Bachelor 3rd Year", ar: "بكالوريوس سنة ثالثة" },
-        description: { fr: "Un cours pratique axé sur la maîtrise de l'écosystème Python pour l'analyse et la visualisation de données.", en: "A practical course focused on mastering the Python ecosystem for data analysis and visualization.", ar: "دورة عملية تركز على إتقان نظام بايثون البيئي لتحليل البيانات وتصورها." },
-        objectives: [
-            {fr: "Manipuler des données avec Pandas et NumPy.", en: "Manipulate data with Pandas and NumPy.", ar: "التعامل مع البيانات باستخدام Pandas و NumPy."},
-            {fr: "Créer des visualisations avec Matplotlib et Seaborn.", en: "Create visualizations with Matplotlib and Seaborn.", ar: "إنشاء تصورات باستخدام Matplotlib و Seaborn."},
-            {fr: "Introduction à Scikit-learn pour le machine learning.", en: "Introduction to Scikit-learn for machine learning.", ar: "مقدمة إلى Scikit-learn لتعلم الآلة."},
-        ],
-        syllabus: [
-            {fr: "Partie 1: Fondamentaux de Python et NumPy", en: "Part 1: Python and NumPy Fundamentals", ar: "الجزء 1: أساسيات بايثON و NumPy"},
-            {fr: "Partie 2: Analyse de Données avec Pandas", en: "Part 2: Data Analysis with Pandas", ar: "الجزء 2: تحليل البيانات باستخدام Pandas"},
-            {fr: "Partie 3: Visualisation de Données", en: "Part 3: Data Visualization", ar: "الجزء 3: تصور البيانات"},
-        ],
-    },
-];
-
-// Supervisions Data
-export const supervisions: Supervision[] = [
-    {
-        year: 2023,
-        level: { fr: "Thèse de Doctorat", en: "PhD Thesis", ar: "أطروحة دكتوراه" },
-        topic: { fr: "IA Explicable pour le Diagnostic Médical", en: "Explainable AI for Medical Diagnosis", ar: "الذكاء الاصطناعي القابل للتفسير للتشخيص الطبي" },
-        researchProjectId: 101,
-    },
-    {
-        year: 2024,
-        level: { fr: "Thèse de Doctorat", en: "PhD Thesis", ar: "أطروحة دكتوراه" },
-        topic: { fr: "Défenses Certifiées contre les Attaques par Empoisonnement en Apprentissage Fédéré", en: "Certified Defenses Against Poisoning Attacks in Federated Learning", ar: "دفاعات معتمدة ضد هجمات التسميم في التعلم الفيدرالي" },
-        researchProjectId: 103,
-    },
-    {
-        year: 2022,
-        level: { fr: "Thèse de Master", en: "Master Thesis", ar: "رسالة ماجستير" },
-        topic: { fr: "Génération de Musique Symbolique avec des Transformers", en: "Symbolic Music Generation with Transformers", ar: "توليد الموسيقى الرمزية باستخدام المحولات" },
-        researchProjectId: 102,
-    },
-];
-
-// Research Domains
-export const researchDomains: MultilingualString[] = [
-    { fr: "IA de Confiance", en: "Trustworthy AI", ar: "الذكاء الاصطناعي الجدير بالثقة" },
-    { fr: "Apprentissage par Renforcement", en: "Reinforcement Learning", ar: "التعلم المعزز" },
-    { fr: "Traitement du Langage Naturel", en: "Natural Language Processing", ar: "معالجة اللغات الطبيعية" },
-    { fr: "Vision par Ordinateur", en: "Computer Vision", ar: "رؤية الحاسوب" },
-    { fr: "Modèles Génératifs", en: "Generative Models", ar: "النماذج التوليدية" },
-    { fr: "Apprentissage Fédéré", en: "Federated Learning", ar: "التعلم الفيدرالي" },
-];
-
-// Testimonials
 export const testimonials: Testimonial[] = [
-    {
-        quote: { fr: "Élise est une chercheuse brillante et une excellente collaboratrice. Son travail sur l'IA éthique est novateur.", en: "Élise is a brilliant researcher and an excellent collaborator. Her work on ethical AI is groundbreaking.", ar: "إليز باحثة لامعة ومتعاونة ممتازة. عملها في مجال الذكاء الاصطناعي الأخلاقي رائد." },
-        author: { fr: "Prof. Jean Martin, Collaborateur Académique", en: "Prof. Jean Martin, Academic Collaborator", ar: "البروفيسور جان مارتن، متعاون أكاديمي" },
-        imageUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704d"
-    },
-    {
-        quote: { fr: "La collaboration avec Dr. Dubois sur notre projet d'IA a été extrêmement fructueuse. Sa capacité à traduire des concepts de recherche complexes en solutions industrielles pratiques est remarquable.", en: "Collaborating with Dr. Dubois on our AI project has been extremely fruitful. Her ability to translate complex research concepts into practical industry solutions is remarkable.", ar: "كان التعاون مع الدكتورة دوبوا في مشروعنا للذكاء الاصطناعي مثمرًا للغاية. قدرتها على ترجمة مفاهيم البحث المعقدة إلى حلول صناعية عملية أمر رائع." },
-        author: { fr: "Dr. David Chen, Chef de la R&D, Innovatech", en: "Dr. David Chen, Head of R&D, Innovatech", ar: "الدكتور ديفيد تشين، رئيس البحث والتطوير، Innovatech" },
-        imageUrl: "https://i.pravatar.cc/150?u=a042581f4e29026707e"
-    },
-    {
-        quote: { fr: "Le cours du Dr. Dubois sur l'apprentissage profond a été le plus enrichissant de mon master. Elle a une vraie passion pour l'enseignement.", en: "Dr. Dubois's course on deep learning was the most enriching of my master's. She has a real passion for teaching.", ar: "كان مقرر الدكتورة دوبوا حول التعلم العميق الأكثر إثراءً في درجة الماجستير. لديها شغف حقيقي بالتدريس." },
-        author: { fr: "Alexandre Dupont, Ancien Étudiant, maintenant Ingénieur IA chez Google", en: "Alexandre Dupont, Former Student, now AI Engineer at Google", ar: "ألكسندر دوبون، طالب سابق، الآن مهندس ذكاء اصطناعي في جوجل" },
-        imageUrl: "https://i.pravatar.cc/150?u=a042581f4e29026705d"
-    },
-    {
-        quote: { fr: "Son encadrement a été déterminant pour ma thèse. Elle est toujours disponible, pleine de bons conseils et elle m'a poussé à atteindre l'excellence.", en: "Her supervision was crucial for my thesis. She is always available, full of good advice, and pushed me to achieve excellence.", ar: "كان إشرافها حاسماً لأطروحتي. هي دائما متاحة، مليئة بالنصائح الجيدة، ودفعتني لتحقيق التميز." },
-        author: { fr: "Chloé Lefèvre, Doctorante", en: "Chloé Lefèvre, PhD Student", ar: "كلوي لوفيفر، طالبة دكتوراه" },
-        imageUrl: "https://i.pravatar.cc/150?u=a042581f4e29026706d"
-    },
+    { id: 1, quote: { fr: "Une enseignante passionnée qui rend les concepts complexes faciles à comprendre.", en: "A passionate teacher who makes complex concepts easy to understand.", ar: "معلمة شغوفة تجعل المفاهيم المعقدة سهلة الفهم." }, author: { fr: "Alexandre Martin, Ancien étudiant", en: "Alexandre Martin, Former Student", ar: "ألكسندر مارتن، طالب سابق" }, imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" },
+    { id: 2, quote: { fr: "Sa direction de recherche a été déterminante pour ma carrière.", en: "Her research supervision was instrumental to my career.", ar: "كان إشرافها البحثي حاسماً في مسيرتي المهنية." }, author: { fr: "Dr. Chloé Lefèvre, Collaboratrice", en: "Dr. Chloé Lefèvre, Collaborator", ar: "الدكتورة كلوي لوفيفر، متعاونة" }, imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop" },
 ];
 
-// Gallery Images
+export const researchDomains: MultilingualString[] = [
+    { fr: "IA éthique et responsable", en: "Ethical and Responsible AI", ar: "الذكاء الاصطناعي الأخلاقي والمسؤول" },
+    { fr: "Apprentissage par renforcement", en: "Reinforcement Learning", ar: "التعلم المعزز" },
+    { fr: "Traitement du langage naturel", en: "Natural Language Processing", ar: "معالجة اللغات الطبيعية" },
+    { fr: "Vision par ordinateur", en: "Computer Vision", ar: "رؤية الحاسوب" },
+];
+
 export const galleryImages: GalleryImage[] = [
-    { src: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400', alt: {fr: 'Session de brainstorming en laboratoire', en: 'Lab brainstorming session', ar: 'جلسة عصف ذهني في المختبر'}, category: 'lab' },
-    { src: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=400', alt: {fr: 'Présentation à la conférence NeurIPS', en: 'Presenting at the NeurIPS conference', ar: 'تقديم في مؤتمر NeurIPS'}, category: 'conference' },
-    { src: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400', alt: {fr: "Atelier d'enseignement sur l'IA", en: 'Teaching an AI workshop', ar: 'تدريس ورشة عمل حول الذكاء الاصطناعي'}, category: 'teaching' },
-    { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400', alt: {fr: 'Discussion de recherche avec des doctorants', en: 'Research discussion with PhD students', ar: 'مناقشة بحثية مع طلاب الدكتوراه'}, category: 'research' },
-    { src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400', alt: { fr: "Événement de réseautage de l'industrie", en: 'Industry networking event', ar: 'حدث تواصل صناعي' }, category: 'conference' },
-    { src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400', alt: {fr: 'Session de codage en groupe', en: 'Group coding session', ar: 'جلسة برمجة جماعية'}, category: 'lab' },
-    { src: 'https://picsum.photos/id/1027/400/400', alt: {fr: 'Notre cluster de calcul', en: 'Our compute cluster', ar: 'مجموعة الحوسبة لدينا'}, category: 'lab' },
-    { src: 'https://picsum.photos/id/10/400/400', alt: {fr: "Session de posters à ICML", en: "Poster session at ICML", ar: "جلسة ملصقات في ICML"}, category: 'conference' },
-    { src: 'https://images.unsplash.com/photo-1531482615713-2c6577eda07c?w=400', alt: { fr: 'Cours magistral en amphithéâtre', en: 'Lecture in an amphitheater', ar: 'محاضرة في مدرج' }, category: 'teaching' },
+    { id: 1, src: 'https://images.unsplash.com/photo-1518152006812-edab29b069ac?q=80&w=400&auto=format&fit=crop', alt: { fr: "Session de brainstorming en laboratoire", en: "Lab brainstorming session", ar: "جلسة عصف ذهني في المختبر" }, category: 'lab' },
+    { id: 2, src: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=400&auto=format&fit=crop', alt: { fr: "Présentation à une conférence", en: "Presenting at a conference", ar: "عرض في مؤتمر" }, category: 'conference' },
+    { id: 3, src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop', alt: { fr: "Cours en amphithéâtre", en: "Lecture in an amphitheater", ar: "محاضرة في المدرج" }, category: 'teaching' },
+    { id: 4, src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=400&auto=format&fit=crop', alt: { fr: "Analyse de données de recherche", en: "Analyzing research data", ar: "تحليل بيانات البحث" }, category: 'research' },
 ];
 
-// Resources
 export const resources: ResourceItem[] = [
-    {
-        id: 301,
-        title: { fr: "Bibliothèque GenAI", en: "GenAI Library", ar: "مكتبة GenAI" },
-        description: { fr: "Une bibliothèque open-source pour l'évaluation des modèles génératifs.", en: "An open-source library for evaluating generative models.", ar: "مكتبة مفتوحة المصدر لتقييم النماذج التوليدية." },
-        url: "#",
-        icon: 'tool'
-    },
-    {
-        id: 302,
-        title: { fr: "Jeu de données sur l'IA Éthique", en: "Ethical AI Dataset", ar: "مجموعة بيانات الذكاء الاصطناعي الأخلاقي" },
-        description: { fr: "Un ensemble de données complet pour la recherche sur l'équité et les biais dans l'IA.", en: "A comprehensive dataset for research on fairness and bias in AI.", ar: "مجموعة بيانات شاملة للبحث في الإنصاف والتحيز في الذكاء الاصطناعي." },
-        url: "#",
-        icon: 'dataset'
-    },
-    {
-        id: 303,
-        title: { fr: "Awesome XAI Papers", en: "Awesome XAI Papers", ar: "أوراق XAI الرائعة" },
-        description: { fr: "Une liste organisée d'articles de recherche sur l'IA Explicable.", en: "A curated list of research papers on Explainable AI.", ar: "قائمة منسقة بأوراق البحث حول الذكاء الاصطناعي القابل للتفسير." },
-        url: "#",
-        icon: 'list'
-    },
-    {
-        id: 304,
-        title: { fr: "Mon Dépôt GitHub", en: "My GitHub Repository", ar: "مستودع GitHub الخاص بي" },
-        description: { fr: "Code source de mes projets de recherche et bibliothèques.", en: "Source code for my research projects and libraries.", ar: "الكود المصدري لمشاريعي البحثية ومكتباتي." },
-        url: "#",
-        icon: 'tool'
-    },
-    {
-        id: 305,
-        title: { fr: "Hugging Face Datasets", en: "Hugging Face Datasets", ar: "مجموعات بيانات Hugging Face" },
-        description: { fr: "Une collection de datasets que j'utilise et que je recommande pour la recherche en NLP.", en: "A collection of datasets I use and recommend for NLP research.", ar: "مجموعة من مجموعات البيانات التي أستخدمها وأوصي بها لأبحاث معالجة اللغات الطبيعية." },
-        url: "#",
-        icon: 'dataset'
-    },
-    {
-        id: 306,
-        title: { fr: "Documentation PyTorch", en: "PyTorch Documentation", ar: "وثائق PyTorch" },
-        description: { fr: "Un lien essentiel vers la documentation officielle de PyTorch, mon framework de prédilection.", en: "An essential link to the official PyTorch documentation, my framework of choice.", ar: "رابط أساسي إلى وثائق PyTorch الرسمية، إطار العمل المفضل لدي." },
-        url: "#",
-        icon: 'list'
-    }
+    { id: 1, title: { fr: "Boîte à outils d'IA Éthique", en: "Ethical AI Toolkit", ar: "مجموعة أدوات الذكاء الاصطناعي الأخلاقي" }, description: { fr: "Une collection d'outils pour l'audit et l'évaluation de l'équité des modèles.", en: "A collection of tools for auditing and evaluating model fairness.", ar: "مجموعة من الأدوات لمراجعة وتقييم عدالة النماذج." }, url: '#', icon: 'tool' },
+    { id: 2, title: { fr: "Jeu de données sur le sentiment", en: "Sentiment Analysis Dataset", ar: "مجموعة بيانات تحليل المشاعر" }, description: { fr: "Un grand jeu de données pour l'analyse des sentiments dans les médias sociaux.", en: "A large-scale dataset for sentiment analysis in social media.", ar: "مجموعة بيانات واسعة النطاق لتحليل المشاعر في وسائل التواصل الاجتماعي." }, url: '#', icon: 'dataset' },
+    { id: 3, title: { fr: "Liste de lecture sur l'IA", en: "AI Reading List", ar: "قائمة قراءة الذكاء الاصطناعي" }, description: { fr: "Une liste organisée d'articles et de livres essentiels sur l'IA.", en: "A curated list of essential papers and books on AI.", ar: "قائمة منسقة بالأوراق والكتب الأساسية حول الذكاء الاصطناعي." }, url: '#', icon: 'list' },
 ];
 
-// Media Interventions
 export const mediaInterventions: MediaItem[] = [
-    {
-        id: 401,
-        title: { fr: "L'avenir de l'IA Responsable", en: "The Future of Responsible AI", ar: "مستقبل الذكاء الاصطناعي المسؤول" },
-        media: { fr: "AI Forward Podcast", en: "AI Forward Podcast", ar: "بودكاست AI Forward" },
-        date: { fr: "Mai 2024", en: "May 2024", ar: "مايو 2024" },
-        url: "#",
-        imageUrl: 'https://images.unsplash.com/photo-1590602848952-e543b9549acc?q=80&w=400&auto=format&fit=crop',
-        type: 'podcast'
-    },
-    {
-        id: 402,
-        title: { fr: "Keynote à la Conférence Devoxx", en: "Keynote at Devoxx Conference", ar: "كلمة رئيسية في مؤتمر Devoxx" },
-        media: { fr: "YouTube", en: "YouTube", ar: "يوتيوب" },
-        date: { fr: "Avril 2024", en: "April 2024", ar: "أبريل 2024" },
-        url: "#",
-        imageUrl: 'https://images.unsplash.com/photo-1556155092-490a194239a4?q=80&w=400&auto=format&fit=crop',
-        type: 'video'
-    },
-    {
-        id: 403,
-        title: { fr: "Comment l'IA transforme la science", en: "How AI is Transforming Science", ar: "كيف يغير الذكاء الاصطناعي العلوم" },
-        media: { fr: "Tech Journal", en: "Tech Journal", ar: "مجلة التكنولوجيا" },
-        date: { fr: "Février 2024", en: "February 2024", ar: "فبراير 2024" },
-        url: "#",
-        imageUrl: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=400&auto=format&fit=crop',
-        type: 'article'
-    },
-    {
-        id: 404,
-        title: { fr: "Les biais dans les algorithmes : un défi pour la société", en: "Bias in algorithms: a challenge for society", ar: "التحيز في الخوارزميات: تحد للمجتمع" },
-        media: { fr: "Le Monde", en: "Le Monde", ar: "لوموند" },
-        date: { fr: "Juin 2024", en: "June 2024", ar: "يونيو 2024" },
-        url: "#",
-        imageUrl: 'https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=400&auto=format&fit=crop',
-        type: 'article'
-    },
-    {
-        id: 405,
-        title: { fr: "Table ronde sur l'avenir du travail à l'ère de l'IA", en: "Panel discussion on the future of work in the age of AI", ar: "حلقة نقاش حول مستقبل العمل في عصر الذكاء الاصطناعي" },
-        media: { fr: "VivaTech 2024", en: "VivaTech 2024", ar: "فيفا تك 2024" },
-        date: { fr: "Mai 2024", en: "May 2024", ar: "مايو 2024" },
-        url: "#",
-        imageUrl: 'https://images.unsplash.com/photo-1573496773905-f5b17e76b254?q=80&w=400&auto=format&fit=crop',
-        type: 'video'
-    },
-    {
-        id: 406,
-        title: { fr: "L'impact de l'IA sur la créativité humaine", en: "The Impact of AI on Human Creativity", ar: "تأثير الذكاء الاصطناعي على الإبداع البشري" },
-        media: { fr: "Science Pop Podcast", en: "Science Pop Podcast", ar: "بودكاست Science Pop" },
-        date: { fr: "Mars 2024", en: "March 2024", ar: "مارس 2024" },
-        url: "#",
-        imageUrl: 'https://images.unsplash.com/photo-1554215286-9f2de25a3d7e?q=80&w=400&auto=format&fit=crop',
-        type: 'podcast'
-    }
+    { id: 1, title: { fr: "L'avenir de l'IA est-il éthique ?", en: "Is the future of AI ethical?", ar: "هل مستقبل الذكاء الاصطناعي أخلاقي؟" }, media: { fr: "France Culture", en: "France Culture", ar: "فرانس كولتور" }, date: { fr: "10 Mai 2024", en: "May 10, 2024", ar: "10 مايو 2024" }, url: '#', imageUrl: 'https://images.unsplash.com/photo-1590602847991-f97431de3a35?q=80&w=400&auto=format&fit=crop', type: 'podcast' },
+    { id: 2, title: { fr: "Démystifier l'apprentissage profond", en: "Demystifying Deep Learning", ar: "إزالة الغموض عن التعلم العميق" }, media: { fr: "Le Monde", en: "Le Monde", ar: "لوموند" }, date: { fr: "22 Avr 2024", en: "Apr 22, 2024", ar: "22 أبريل 2024" }, url: '#', imageUrl: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=400&auto=format&fit=crop', type: 'article' },
+    { id: 3, title: { fr: "Table ronde sur l'IA et la société", en: "Panel on AI and Society", ar: "حلقة نقاش حول الذكاء الاصطناعي والمجتمع" }, media: { fr: "Conférence AISTATS", en: "AISTATS Conference", ar: "مؤتمر AISTATS" }, date: { fr: "01 Fév 2024", en: "Feb 01, 2024", ar: "01 فبراير 2024" }, url: '#', imageUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=400&auto=format&fit=crop', type: 'video' },
 ];

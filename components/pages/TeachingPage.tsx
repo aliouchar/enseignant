@@ -107,7 +107,6 @@ export const TeachingPage: React.FC<TeachingPageProps> = ({ courses, onViewCours
                                         onReadMore={() => onViewCourse(course.id)}
                                         downloadUrl={course.downloadUrl}
                                         downloadFilename={`Syllabus_${course.title.en.replace(/\s+/g, '_')}.txt`}
-                                        size="large"
                                     />
                                 </AnimateOnScroll>
                             ))}

@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../translations';
 
-export const ContactForm: React.FC = () => {
+interface ContactFormProps {
+    onSubmit: (name: string, email: string, message: string) => void;
+}
+
+export const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
     const { language } = useLanguage();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-    const [status, setStatus] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setStatus(translations.formSuccess[language]);
+        onSubmit(name, email, message);
         setName('');
         setEmail('');
         setMessage('');
@@ -62,7 +65,6 @@ export const ContactForm: React.FC = () => {
                         {translations.sendMessage[language]}
                     </button>
                 </div>
-                 {status && <p className="text-center text-green-600 mt-4">{status}</p>}
             </form>
         </div>
     );

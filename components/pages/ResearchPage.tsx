@@ -52,7 +52,8 @@ export const ResearchPage: React.FC<ResearchPageProps> = ({ researchDomains, res
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                         {researchDomains.map((domain, i) => (
                             <AnimateOnScroll key={i} delay={i * 100}>
-                                <InfoCard title={domain[language]} className="text-center h-full flex items-center justify-center" />
+                                {/* Fix: Added empty children to satisfy InfoCard's props requirement. */}
+                                <InfoCard title={domain[language]} className="text-center h-full flex items-center justify-center">{''}</InfoCard>
                             </AnimateOnScroll>
                         ))}
                     </div>
@@ -84,7 +85,6 @@ export const ResearchPage: React.FC<ResearchPageProps> = ({ researchDomains, res
                                         onReadMore={() => onViewProject(project.id)}
                                         downloadUrl={project.downloadUrl}
                                         downloadFilename={`Project_${project.title.en.replace(/\s+/g, '_')}.txt`}
-                                        size="large"
                                     />
                                 </AnimateOnScroll>
                             ))}

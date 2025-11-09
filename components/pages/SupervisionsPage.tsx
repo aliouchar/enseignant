@@ -9,10 +9,10 @@ import { AnimateOnScroll } from '../AnimateOnScroll';
 
 interface SupervisionsPageProps {
     supervisions: Supervision[];
-    onViewProject: (id: number) => void;
+    onViewSupervision: (id: number) => void;
 }
 
-export const SupervisionsPage: React.FC<SupervisionsPageProps> = ({ supervisions, onViewProject }) => {
+export const SupervisionsPage: React.FC<SupervisionsPageProps> = ({ supervisions, onViewSupervision }) => {
     const { language } = useLanguage();
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedYear, setSelectedYear] = useState('');
@@ -73,9 +73,8 @@ export const SupervisionsPage: React.FC<SupervisionsPageProps> = ({ supervisions
                         <AnimateOnScroll key={index} animationClass="animate-fade-in-up">
                             <ActionCard
                                 title={sup.topic[language]}
-                                description={`${sup.level[language]} - ${sup.year}`}
-                                onReadMore={sup.researchProjectId ? () => onViewProject(sup.researchProjectId!) : undefined}
-                                size="large"
+                                description={`${sup.studentName[language]} - ${sup.level[language]} (${sup.year})`}
+                                onReadMore={() => onViewSupervision(sup.id)}
                             />
                         </AnimateOnScroll>
                     ))}
